@@ -8,13 +8,15 @@ import {
   faStar as faStarSolid,
 } from "@fortawesome/free-solid-svg-icons";
 
-const CourseCard = ({ className, course }) => {
+const CourseCard = ({ onModalOpen, className, course }) => {
   const [isFavourite, setIsFavourite] = React.useState(false);
+
   const cutText = (txt, len) => {
     if (txt.length > len) {
       return txt.substring(0, len) + "...";
     }
   };
+
   return (
     <div className={className}>
       <div className="card">
@@ -33,6 +35,7 @@ const CourseCard = ({ className, course }) => {
               </p>
               <div>
                 <Badge text={course.university} color="primary" />
+                <Badge text={course.degree} color="primary" />
                 <Badge text={course.term} color="primary" />
                 <Badge text={course.ects} color="primary" />
                 <Badge text={course.department} color="primary" />
@@ -46,6 +49,10 @@ const CourseCard = ({ className, course }) => {
               <a
                 className="has-text-primary is-flex is-align-items-center"
                 href=""
+                onClick={(e) => {
+                  e.preventDefault();
+                  onModalOpen(course);
+                }}
               >
                 read more{" "}
                 <FontAwesomeIcon className="ml-2" icon={faArrowRightLong} />
